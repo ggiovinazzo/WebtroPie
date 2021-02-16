@@ -1,0 +1,72 @@
+<div>
+    <div ng-if="vm.header" class="header"
+         ng-style="vm.headerstyle" >
+        <div class="text headerfield"
+             ng-repeat="field in app.GameService.fields_shown"
+             ng-style="field.headerstyle"
+             ng-click="vm.setOrderBy(field)">{{field.text}}</div>
+    </div>
+<!--
+         ng-touchcancel="vm.mouseUp($event)"
+         ng-touchend="vm.mouseUp($event)"
+         ng-touchstart="vm.mouseDown($event)"
+         ng-touchmove="vm.mouseMove($event)"
+         ondrop="vm.drop(event)"
+         ondragover="vm.allowDrop(event)" >
+-->
+    <div id="scroller{{vm.system}}" tabindex=0 class="gamelist_outer"
+         ng-style="vm.liststyle"
+         ng-keydown="app.util.keyPress($event)"
+         ng-keyup="app.util.keyRelease($event)">
+        <div class="gamelist"
+            ng-style="{height: (vm.filtered.length * app.ThemeService.gamelist.linesize * 100)+'vh',
+                       width: app.ThemeService.gamelist.width}">
+            <div ng-if="app.ThemeService.gamelist.selector" class="gamelist_selector"
+                 ng-style="app.ThemeService.gamelist.selector"></div>
+            <div class="gamerow"
+                 ng-repeat="game in vm.pageVm.filtered = vm.filtered = app.GameService.filtered =
+                  ( vm.gamelist
+                    |directory:vm.subdir:app.config.app.ShowEmptyDirectories:app.GameService.filter
+                    |orderBy:vm.orderby.orderby:vm.orderby.reverse )
+                    |limitTo:app.ThemeService.gamelist.rows+100:vm.buffer_index"
+                 ng-click="vm.clickGame(game, $event, $index)"
+                 ng-style="vm.getGameRowStyle(game, vm.buffer_index+$index)"
+                 ng-mouseover="vm.mouseOver(game, $event)"
+		 ng-right-click="vm.rightClick($event)" 
+		 >
+                 <!-- text and datetime fields -->
+                <div ng-repeat="field in app.GameService.fields_shown = (app.GameService.list_fields|filter:{show:true})|fieldtype:'text'"
+                     ng-style="field.style" class="text gamefield"
+                     ng-bind="app.GameService.getGameMetadata(game, field, true)" >
+                </div>
+                <!-- image toggle fields -->
+                <div ng-repeat="field in app.GameService.fields_shown|fieldtype:'toggle'"
+                     ng-style="field.style" class="text gamefield">
+                    <md-image-toggle game="game" md="{{field.name}}" autosave=1
+                                     size="field.vw" size-units="vmin">
+                    </md-image-toggle></div>
+                <!-- rating -->
+                <div ng-repeat="field in app.GameService.fields_shown|fieldtype:'rating'"
+                       ng-style="field.style" class="text gamefield">
+                    <theme-rating game="game" autosave=1
+                                  size="field.vw" size-units="vw"></theme-rating></div>
+            </div>
+            <!-- div class="gamerow" ng-style="vm.getGameRowStyle(null, vm.filtered.length)"
+                 ng-hide="vm.fetching">
+                <form class="romupload text" novalidate>
+                    <div ng-show="uploading" class="progressbar"
+                         ng-style="{width: progress+'%'}">{{progress}}%</div>
+                    <div ng-hide="uploading">
+                        <icon svg="'resources/upload.svg'"
+                              color="app.ThemeService.gamelist.primaryColor"></icon>
+                        <input class="uploadfile" type="file" accept="image/*"
+                              ng-model="files" file-selector id="new_rom"
+                              ng-change="vm.upload(files)"/>
+                        <label for="new_rom">
+                            Choose or drag a rom file to the list.</label>
+                    </div>
+                </form>
+            </div -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div>
+    <form class="upload" novalidate
+          ng-hide="!vm.dragover && !vm.uploading && vm.game[vm.md] && vm.game[vm.md+'_url']">
+        <div ng-show="vm.uploading" class="progressbar"
+             ng-style="{width: vm.progress}"
+             ng-bind="vm.progress_text">
+        </div>
+        <span ng-show="vm.dragover">Drop to upload {{::vm.md}} file</span>
+        <div ng-hide="vm.uploading || vm.dragover">
+            <icon svg="'resources/upload.svg'"></icon>
+            <input class="uploadfile" type="file" accept="image/*"
+                 ng-model="vm.files" file-selector id="{{::vm.md}}_files"
+                 ng-change="upload(vm.files)"/>
+            <label for="{{::vm.md}}_files">
+                Choose or drag a {{::vm.md}} file.</label>
+        </div>
+    </form>
+    <div>
+        <img ng-if="vm.md!='video' && vm.gameMediaUrl()" class="click"
+             title="{{app.config.lang.editor.clickPreview}}"
+             ng-style="{'max-height': vm.thumbnail, 'max-width': '30vw'}"
+             ng-src="{{vm.gameMediaUrl()}}"
+             ng-click="vm.preview=!vm.preview">
+        <video ng-if="vm.md=='video' && vm.gameMediaUrl()" class="click"
+             title="{{app.config.lang.editor.clickPreview}}"
+             ng-style="{height: vm.thumbnail}"
+             ng-src="{{vm.gameMediaUrl()}}" autoplay loop muted
+             ng-click="vm.preview=!vm.preview">
+        </video>
+        <div ng-show="vm.preview && vm.width && !vm.dragover" class="preview"
+             ng-style="vm.zoomStyle(4,3)"
+             draggable
+            ><img ng-if="vm.md!='video' && vm.gameMediaUrl()"
+                  ng-src="{{vm.gameMediaUrl()}}"
+                  ng-style="vm.zoomStyle()"
+                  on-load-image="vm.mediaLoaded($event, width, height, size, mtime)"/
+            ><video ng-if="vm.md=='video' && vm.gameMediaUrl()"
+                  ng-src="{{vm.gameMediaUrl()}}"
+                  ng-style="vm.zoomStyle()"
+                  on-load-video="vm.mediaLoaded($event, width, height, size, mtime)"
+                  muted autoplay loop controls
+            ></video
+            ><div class="info">
+                <div class="controls">
+                    <span ng-click="vm.preview=false"
+                          title="{{app.config.lang.button.close}}">&times;</span>
+                    <span ng-click="vm.zoomOut()"
+                          title="{{app.config.lang.editor.zoomOut}}">-</span>
+                    {{(vm.scale || 1) * 100}}%
+                    <span ng-click="vm.zoomIn()"
+                          title="{{app.config.lang.editor.zoomIn}}">+</span>
+                </div>
+                <div class="details">
+                    {{vm.width}} x {{vm.height}}<br/>
+                    <span ng-if="vm.size">
+                        {{app.config.lang.md_label.human_size}} {{vm.size}}<br/>
+                    </span>
+                    <span ng-if="vm.duration">
+                        {{app.config.lang.time.duration}} {{vm.duration}}<br/>
+                    </span>
+                    {{app.config.lang.md_label.modified}} {{vm.modified}}<br>
+                    {{vm.modified_ago}}<br/>
+                </div>
+            </div
+        ></div>
+    </div>
+</div>

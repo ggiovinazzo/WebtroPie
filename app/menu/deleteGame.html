@@ -1,0 +1,28 @@
+<div class="menu gui">
+
+    <div class="title">{{app.config.lang.button.delete}}:
+                       {{app.gameToDelete.name}}
+    </div>
+    <div class="line"></div>
+
+    <div class="prompt">
+        {{app.config.lang.editor.deleteGame}}
+    </div>
+    <div class="prompt">
+        {{app.config.lang.editor.deleteROM}}
+        &nbsp;
+        <image-toggle class="checkbox right"
+                ng-model="app.deleteROM"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="footer" ng-hide="app.closing_es">
+        <button ng-click="app.hideMenu()">{{app.config.lang.button.no}}</button>
+        <button ng-click="app.GameService.deleteGame(app.gameToDelete, app.deleteROM)"
+                ng-if="app.config.local">{{app.config.lang.button.yes}}</button>
+    </div>
+
+</div>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WebtroPie" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WebtroPie</title>
+    <meta name="description" content="A Rom Manager for RetroPie">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="app">
+    <link rel="icon" type="image/png" href="zax80x80.png" />
+    <link rel="stylesheet" href="app.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <script src="lib/angular-animate.min.js"></script>
+    <script src="app.js"></script>
+    <script src="services/config.service.js"></script>
+    <script src="services/util.service.js"></script>
+    <script src="services/theme.service.js"></script>
+    <script src="services/styler.service.js"></script>
+    <script src="services/game.service.js"></script>
+    <script src="services/carousel.service.js"></script>
+    <script src="services/es.service.js"></script>
+    <script src="services/menu.service.js"></script>
+    <script src="services/themer.service.js"></script>
+    <script src="app.controller.js"></script>
+    <script src="components/guiDateInput.js"></script>
+    <script src="components/guiIcon.js"></script>
+    <script src="components/guiImageToggle.js"></script>
+    <script src="components/guiMenu.js"></script>
+    <script src="components/logo.js"></script>
+    <script src="components/helpInverter.js"></script>
+    <script src="components/helpMenu.js"></script>
+    <script src="components/onLoadImage.js"></script>
+    <script src="components/onLoadVideo.js"></script>
+    <script src="components/themeDate.js"></script>
+    <script src="components/themeImage.js"></script>
+    <script src="components/themeRating.js"></script>
+    <script src="components/themeText.js"></script>
+    <script src="components/themeVideo.js"></script>
+    <script src="components/mdImageToggle.js"></script>
+    <script src="components/gamelist.js"></script>
+    <script src="components/gameEditor.js"></script>
+    <script src="components/gameEditor-fileSelector.js"></script>
+    <script src="components/gameEditor-mdMediaUpload.js"></script>
+    <script src="components/spinner.js"></script>
+    <script src="components/themeElementMouseOver.js"></script>
+    <script src="components/themeElementMover.js"></script>
+    <script src="components/draggable.js"></script>
+    <script src="filters/orderObjectBy.filter.js"></script>
+    <script src="filters/gamelistDirectory.filter.js"></script>
+    <script src="filters/gamelistFieldType.filter.js"></script>
+    <script src="lib/ngTouch.js"></script>
+    <script src="lib/animationEnd.js"></script>
+    <script src="views/system.view.js"></script>
+    <script src="views/gamelist.view.js"></script>
+</head>
+<body><div ng-controller="AppController as app">
+        <!-- Main view pages -->
+        <div id="mainview" ng-class="app.animate_view_class" ng-view
+             class="view"></div>
+
+        <menu ng-if="app.menu.show"></menu>
+        <theme-element-mover ng-if="app.config.app.ThemeEditor"></theme-element-mover>
+        <!-- theme-element-properties draggable ng-if="app.config.app.ThemeEditor"></theme-element-properties -->
+    </div>
+    <div id="dynamic_media"></div>
+</body>
+</html>

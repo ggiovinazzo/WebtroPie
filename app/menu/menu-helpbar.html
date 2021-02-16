@@ -1,0 +1,79 @@
+<div class="menu gui">
+
+    <div class="title">{{app.config.lang.menu.Helpbar}}</div>
+    <div class="line"></div>
+
+    <!-- div class="option">
+        {{app.config.lang.menu.ShowHomeMenu}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowHomeMenu"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div ng-repeat-end class="line"></div -->
+    <div class="option">
+        {{app.config.lang.menu.ShowLaunch}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowLaunch"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowGameCounts}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowGameCounts"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowAddFields}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowAddFields"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowThemeSelect}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowThemeSelect"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowViewSelect}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowViewSelect"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowESControl}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowESControl"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="footer">
+         <button ng-click="app.exitMenu()">{{app.config.lang.button.back}}</button>
+    </div>
+
+</div>

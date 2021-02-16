@@ -1,0 +1,255 @@
+<div draggable class="element-properties">
+    <table width="100%">
+        <tr>
+            <td>
+                <select
+                    ng-model="vm.tag"
+                    ng-change="vm.tagChange()"
+                    ng-options="tag for tag in vm.tags">
+                </select>
+            </td>
+            <td><!-- input ng-model="vm.element.name" class="w60" -->
+                <select
+                    ng-model="vm.element"
+                    ng-change="vm.setElement(vm.element)"
+                    ng-options="el as el.name for el in app.ThemeService.view[vm.element.tag] | orderObjectBy:'name':false">
+                </select>
+                Extra
+                <image-toggle class="checkbox"
+                    ng-model="vm.element.extra"
+                    clicked="vm.changeZIndex()"
+                    on-svg="resources/checkbox_checked.svg" on-color="FFFF00"
+                    off-svg="resources/checkbox_unchecked.svg" off-color="888800">
+                </image-toggle>
+
+                <span ng-if="vm.themeStyle.display == 'none'">&nbsp; hidden / offscreen</span>
+                <span class="close"
+                      ng-show="vm.pinned"
+                      ng-click="vm.close($event)"
+                >&times;</span>
+            </td>
+        </tr>
+        <tr ng-if="vm.element">
+            <td>pos</td>
+            <td>
+                <input ng-model="vm.element.pos.x" ng-change="vm.changePos()" class="w15"> :
+                <input ng-model="vm.element.pos.y" ng-change="vm.changePos()" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element && vm.element.tag!='helpsystem'">
+            <td>size</td>
+            <td>
+                <input ng-model="vm.element.size.w" ng-change="vm.changeSize()" class="w15"> :
+                <input ng-model="vm.element.size.h" ng-change="vm.changeSize()" class="w15">
+                <span ng-if="vm.element.size.w && !vm.element.size.h"> expand to content height</span>
+                <span ng-if="!vm.element.size.w && vm.element.size.h"> expand to content width</span>
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='image' || vm.element.tag=='video'">
+            <td>maxSize</td>
+            <td>
+                <input ng-model="vm.element.maxSize.w" ng-change="vm.changeMaxSize()" class="w15"> :
+                <input ng-model="vm.element.maxSize.h" ng-change="vm.changeMaxSize()" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element && vm.element.tag!='helpsystem' && vm.element.tag!='datetime'">
+            <td>origin</td>
+            <td>
+                <input ng-model="vm.element.origin.x" ng-change="vm.changeOrigin()" class="w15"> :
+                <input ng-model="vm.element.origin.y" ng-change="vm.changeOrigin()" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element && vm.element.tag!='helpsystem' && vm.element.tag!='datetime'">
+            <td>zIndex</td>
+            <td>
+                <input type=text ng-model="vm.element.zIndex" ng-change="vm.changeZIndex()" class="w15">
+                 File Element Index #{{vm.element.index}},
+                 <span ng-if="vm.element.fullscreen"> fullscreen,</span>
+                 z-index = {{vm.themeStyle['z-index']}}
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='image' && vm.element.name!='md_image' && vm.element.name!='md_marquee'">
+            <td>path</td>
+            <td>
+                <input ng-model="vm.element.path"
+                       ng-change="vm.changePathColorTile()" class="w60">
+            </td>
+        </tr>
+        <tr ng-if="(vm.element.tag=='image' || vm.element.tag=='video')">
+            <td>default</td>
+            <td>
+                <input ng-model="vm.element.default" class="w60">
+                <span ng-if="vm.element.tag=='image'">*</span>
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='image' || vm.element.tag=='video' || vm.element.tag=='text' || vm.element.tag=='rating'">
+            <td>rotation &#176;</td>
+            <td>
+                <input ng-model="vm.element.rotation"
+                       ng-change="vm.changeRotation()" class="w10">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='image' || vm.element.tag=='video' || vm.element.tag=='text' || vm.element.tag=='rating'">
+            <td>rotationOrigin</td>
+            <td>
+                <input ng-model="vm.element.rotationOrigin.x"
+                       ng-change="vm.changeRotation()" class="w15"> :
+                <input ng-model="vm.element.rotationOrigin.y"
+                       ng-change="vm.changeRotation()"  class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='image'">
+            <td>tile</td>
+            <td>
+                <image-toggle class="checkbox"
+                        ng-model="vm.element.tile"
+                        clicked="vm.changePathColorTile()"
+                        on-svg="resources/checkbox_checked.svg" on-color="FFFF00"
+                        off-svg="resources/checkbox_unchecked.svg" off-color="888800">
+                </image-toggle>
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='text' || vm.element.tag=='datetime'">
+            <td>color</td>
+            <td>
+                <input ng-model="vm.element.color"
+                       ng-change="vm.changePathColorTile()" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='text'">
+            <td>backgroundColor</td>
+            <td>
+                <input disabled ng-model="vm.element.backgroundColor" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='text' || vm.element.tag=='textlist' || vm.element.tag=='datetime' || vm.element.tag=='helpsystem'">
+            <td>fontPath</td>
+            <td>
+                <input disabled ng-model="vm.element.fontPath" class="w60">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='text' || vm.element.tag=='textlist' || vm.element.tag=='datetime' || vm.element.tag=='helpsystem'">
+            <td>fontSize</td>
+            <td>
+                <input ng-model="vm.element.fontSize"
+                       ng-change="vm.changeFontSize()" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='text' || vm.element.tag=='textlist'">
+            <td>alignment</td>
+            <td>
+                Left       <input type="radio" value="left" ng-model="vm.element.alignment" ng-click="vm.changeAlignment()">
+                Center V+H <input type="radio" value="center" ng-model="vm.element.alignment" ng-click="vm.changeAlignment()">
+                Right      <input type="radio" value="right" ng-model="vm.element.alignment" ng-click="vm.changeAlignment()">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='text' || vm.element.tag=='textlist' || vm.element.tag=='datetime'">
+            <td>forceUppercase</td>
+            <td>
+                <input disabled type="checkbox" ng-model="vm.element.forceUppercase">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='text' || vm.element.tag=='textlist'">
+            <td>lineSpacing</td>
+            <td>
+                <input disabled ng-model="vm.element.lineSpacing" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>selectorColor</td>
+            <td>
+                <input disabled ng-model="vm.element.selectorColor" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>selectorImagePath</td>
+            <td>
+                <input disabled ng-model="vm.element.selectorImagePath" class="w60">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>selectorImageTile</td>
+            <td>
+                <input disabled type="checkbox" ng-model="vm.element.selectorImageTile"> *
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>selectorHeight</td>
+            <td>
+                <input disabled ng-model="vm.element.selectorHeight" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>selectorOffsetY</td>
+            <td>
+                <input disabled ng-model="vm.element.selectorOffsetY" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>selectedColor</td>
+            <td>
+                <input disabled ng-model="vm.element.selectedColor" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>primaryColor</td>
+            <td>
+                <input disabled ng-model="vm.element.primaryColor" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>secondaryColor</td>
+            <td>
+                <input disabled ng-model="vm.element.secondaryColor" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>scrollSound</td>
+            <td>
+                <input disabled ng-model="vm.element.scrollSound" class="w60">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='textlist'">
+            <td>horizontalMargin</td>
+            <td>
+                <input disabled ng-model="vm.element.horizontalMargin" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='rating'">
+            <td>filledPath</td>
+            <td>
+                <input disabled ng-model="vm.element.filledPath" class="w60">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='rating'">
+            <td>unfilledPath</td>
+            <td>
+                <input disabled ng-model="vm.element.unfilledPath" class="w60">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='video'">
+            <td>showSnapshotNoVideo</td>
+            <td>
+                <input disabled type="checkbox" ng-model="vm.element.showSnapshotNoVideo">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='video'">
+            <td>showSnapshotDelay</td>
+            <td>
+                <input disabled type="checkbox" ng-model="vm.element.showSnapshotDelay"> *
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='helpsystem'">
+            <td>textColor</td>
+            <td>
+                <input disabled ng-model="vm.element.textColor" class="w15">
+            </td>
+        </tr>
+        <tr ng-if="vm.element.tag=='helpsystem'">
+            <td>iconColor</td>
+            <td>
+                <input disabled ng-model="vm.element.iconColor" class="w15">
+            </td>
+        </tr>
+    </table>
+</div>

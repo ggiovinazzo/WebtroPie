@@ -1,0 +1,132 @@
+<div class=window_size>
+   <!-- all theme components including game centric components -->
+    <theme-image ng-repeat="obj in page.view.imageSorted" obj="obj" game="page.game" system="page.system"
+                 theme-element-mouse-over></theme-image>
+    <theme-video ng-repeat="obj in page.view.video" obj="obj" game="page.game" system="page.system"
+                 ng-if="page.view.styled && page.loaded && obj.pos"
+                 theme-element-mouse-over></theme-video>
+     <theme-text ng-repeat="obj in page.view.text" obj="obj" game="page.game" system="page.system"
+                 ng-if="!obj.anchor_label"
+                 theme-element-mouse-over></theme-text>
+   <theme-rating ng-repeat="obj in page.view.rating" obj="obj" game="page.game"
+                 ng-if="!obj.anchor_label"
+                 theme-element-mouse-over></theme-rating>
+     <theme-date ng-repeat="obj in page.view.datetime" obj="obj" game="page.game"
+                 ng-if="!obj.anchor_label"
+                 theme-element-mouse-over></theme-date>
+
+
+   <!-- the list -->
+   <gamelist-virtual-repeat
+      ng-if="page.view.styled && page.loaded"
+      page-vm="page"
+      system="{{::page.system}}"
+      subdir="{{::page.subdir}}"
+      obj="page.view.textlist.gamelist"
+      theme-element-mouse-over>
+   </gamelist-virtual-repeat>
+
+   <game-editor ng-if="app.GameService.edit"
+                selected-list="page.selectedList"></game-editor>
+
+   <!-- help bar -->
+   <help-menu list="page.helpmenu" obj="app.styler.help" view="gamelistView"
+              ng-if="page.view.styled">
+
+      <input type=text class="filters"
+             id="filter"
+             ng-model="app.GameService.filter"
+             ng-keydown="page.keyPress($event)"
+             ng-style="app.styler.helpTextColorBorder">
+      <span class="filters uppercase"
+             ng-if="app.config.app.ShowGameCounts && page.gamelist.length">
+         {{page.filtered.length}}/{{page.gamelist.length}}
+         <span ng-if="app.GameService.selectedList.length">
+          {{page.selectedList.length}} {{app.config.lang.gamelistView.GamesSelected}}</span>
+      </span>
+
+      <!-- span class="filters" ng-bind="page.game.name"></span -->
+
+      <span class="dropdown uppercase"
+            ng-if="app.config.app.ShowAddFields"
+            ng-mouseover="colhover=true"
+            ng-mouseout="colhover=false">
+         <div class="filters" help-inverter
+              ng-click="colhover=!colhover" > +/- </div>
+         <div ng-style="app.styler.helpTextColorBorder"
+              ng-class="app.styler.helpMenuOptionClasses"
+              ng-show="colhover">
+            <a help-inverter
+               ng-click="page.toggleField(column); colhover=false; "
+               ng-repeat="column in app.GameService.list_fields">
+                <image-toggle class="checkbox"
+                   ng-model="column.show" noclick=1
+                   on-svg="resources/checkbox_checked.svg" on-color="help"
+                   off-svg="resources/checkbox_unchecked.svg" off-color="help" >
+                </image-toggle>
+                {{::column.text}}
+            </a>
+            <div class="hr"></div>
+            <a help-inverter
+               ng-click="page.toggleStretch(); colhover=false">
+             <image-toggle class="checkbox"
+                ng-model="app.config.themes['stretch-'+app.config.app.ThemeSet]" noclick=1
+                on-svg="resources/checkbox_checked.svg" on-color="help"
+                off-svg="resources/checkbox_unchecked.svg" off-color="help">
+             </image-toggle>
+             {{app.config.lang.gamelistView.Stretch}}
+         </a>
+            <a help-inverter
+               ng-click="page.resetFields()">{{app.config.lang.gamelistView.Reset}}</a>
+         </div>
+      </span>
+
+      <span class="dropdown"
+            ng-if="app.config.app.ShowThemeSelect"
+            ng-mouseover="app.config.themehover=true"
+            ng-mouseout="app.config.themehover=false" >
+         <div class="filters" help-inverter
+            ng-click="app.config.themehover=!app.config.themehover" >{{app.config.lang.systemView.Theme}}</div>
+         <div ng-style="app.styler.helpTextColorBorder"
+              ng-class="app.styler.helpMenuOptionClasses+' '+(app.config.themes_list.length>=40?'treble':(app.config.themes_list.length>=20?'double':''))"
+              ng-show="app.config.themehover" >
+            <a help-inverter
+               ng-repeat="theme in app.config.themes_list | orderObjectBy:'name':false"
+               ng-click="app.themeChanged(theme.name)">
+               {{::theme.name}}
+               <span ng-show="theme.name == app.ThemeService.theme.name">*</span>
+            </a>
+         </div>
+      </span>
+
+      <span class="dropdown"
+            ng-if="app.config.app.ShowViewSelect"
+            ng-mouseover="viewhover=true"
+            ng-mouseout="viewhover=false">
+         <div class="filters" help-inverter
+             ng-click="viewhover=!viewhover" >{{app.config.lang.gamelistView.View}}</div>
+         <div ng-class="app.styler.helpMenuOptionClasses"
+              ng-style="app.styler.helpTextColorBorder"
+              ng-show="viewhover">
+            <a help-inverter
+               ng-repeat="view in app.ThemeService.system.view | orderObjectBy:'name':false"
+               ng-hide="view.name == 'system'"
+               ng-click="app.ThemeService.switchView(view.name); viewhover=false" >
+               {{::view.name}}
+               <span ng-show="view == app.ThemeService.view">*</span>
+            </a>
+         </div>
+      </span>
+
+      <span class="dropdown" ng-if="app.config.app.ShowESControl">
+        <div class="filters click" help-inverter
+                ng-if="!app.config.env.es_pid"
+                ng-click="app.ES.start()">{{app.config.lang.es.startHelpbar}}</div>
+        <div class="filters click" help-inverter
+                ng-if="app.config.env.es_pid"
+                ng-click="app.showMenu('menu/es_close_warning.html')">{{app.config.lang.es.stopHelpbar}}</div>
+      </span>
+
+   </help-menu>
+
+</div>

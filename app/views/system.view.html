@@ -1,0 +1,116 @@
+<div class=window_size >
+    <theme-image obj="image" system="app.CarouselService.getCurrentCarouselSystemName()"
+        ng-repeat="image in app.ThemeService.view.notCarouselImages"
+        theme-element-mouse-over>
+    </theme-image>
+    <div ng-repeat="car in app.CarouselService.systems"
+         id="sys-imgs-{{car.system_name}}"
+         ng-if="page.systembar.dragging || app.CarouselService.centerOffset($index)==0 || (page.loaded && app.CarouselService.centerOffset($index) >= -1 && app.CarouselService.centerOffset($index) <= 1)"
+         ng-style="page.systembar.dragging?app.styler.carousel.backgrounds[app.CarouselService.centerOffset($index)+app.styler.carousel.hiIndex]:{}"
+         ng-class="'system_images'+app.CarouselService.centerOffset($index)+(page.loaded && page.animating?' systemtransition':'')">
+        <div class="system_images_inner">
+            <theme-image obj="image" system="app.CarouselService.getCurrentCarouselSystemName()"
+                ng-repeat="image in car.theme.view.system.carouselImages"
+                theme-element-mouse-over>
+            </theme-image>
+        </div>
+    </div>
+    <!-- preload next/prev images -->
+    <div ng-if="app.ThemeService.theme">
+        <theme-image obj="image" style="opacity: 0" system="app.CarouselService.getRelativeCarouselSystemName(+1)"
+            ng-repeat="image in app.CarouselService.getRelativeCarouselSystemTheme(+1).view.system.notCarouselImages">
+        </theme-image>
+        <theme-image obj="image" style="opacity: 0" system="app.CarouselService.getRelativeCarouselSystemName(-1)"
+            ng-repeat="image in app.CarouselService.getRelativeCarouselSystemTheme(-1).view.system.notCarouselImages">
+        </theme-image>
+    </div>
+
+    <div ng-style="app.styler.carousel.style"
+        ng-mousedown="page.mouseDown($event)"
+        ng-mousemove="page.mouseMove($event)"
+        ng-mouseup="page.mouseUp($event)"
+        ng-mouseout="page.mouseOut($event)"
+        ng-touchstart="page.mouseDown($event)"
+        ng-touchmove="page.mouseMove($event)"
+        ng-touchcancel="page.mouseUp($event)"
+        ng-touchend="page.mouseUp($event)"
+        class="systemcarousel systemtransition"
+        theme-element-mouse-over>
+        <div ng-style="app.styler.carousel.div_inner">
+            <div ng-repeat="car in app.CarouselService.systems"
+                id="sys-{{car.system_name}}"
+                ng-if="app.CarouselService.centerOffset($index) > app.styler.carousel.loIndex &&
+                        app.CarouselService.centerOffset($index) <= app.styler.carousel.hiIndex"
+                animation-end="page.carouselAnimationEnd"
+                ng-style="page.systembar.dragging?app.styler.carousel.logos[app.CarouselService.centerOffset($index)+app.styler.carousel.hiIndex]:{}"
+                ng-class="'logo'+app.CarouselService.centerOffset($index)+(!page.systembar.dragging?' systemtransition':'')"
+               ><logo id="logo{{app.CarouselService.centerOffset($index)}}"
+                    class="click"
+                    system="car.system_name"
+                    logo="car.theme.view.system.image.logo"
+                    logo-text="car.theme.view.system.text.logoText"
+                    ng-keydown="page.keyPress($event)"
+                    ng-mousedown="page.mouseDown($event, car.system_name)"
+                    ng-mousemove="page.mouseMove($event)"
+                    ng-mouseup="page.mouseUp($event)"
+                    ng-touchstart="page.mouseDown($event, car.system_name)"
+                    ng-touchmove="page.mouseMove($event)"
+                    ng-touchcancel="page.mouseUp($event)"
+                    ng-touchend="page.mouseUp($event)"></logo
+           ></div>
+        </div>
+    </div>
+
+    <div ng-if="app.styler.systemInfo.style"
+        ng-style="app.styler.systemInfo.style" class="text fade-in-out ng-hide"
+        ng-show="!page.animating && !page.systembar.dragging">
+        <div ng-style="app.styler.systemInfo.inner" class="text_inner uppercase"
+            ng-show="app.GameService.systems[app.CarouselService.getCurrentCarouselSystemName()].fetched">
+            {{app.GameService.systems[app.CarouselService.getCurrentCarouselSystemName()].total}}
+            {{app.config.lang.systemView.GamesAvailable}}
+        </div>
+    </div>
+
+    <!-- help bar -->
+    <help-menu ng-if="app.styler.help"
+               list="page.helpmenu"
+               obj="app.styler.help"
+               view="systemView"
+               theme-element-mouse-over >
+
+        <span class="dropdown" 
+            ng-show="app.config.app.ShowThemeSelect"
+            ng-mouseover="app.config.themehover=true"
+            ng-mouseout="app.config.themehover=false" >
+            <div class="filters" help-inverter
+                 ng-click="app.config.themehover=!app.config.themehover" >
+                 {{app.config.lang.systemView.Theme}}
+            </div>
+            <div ng-style="app.styler.helpTextColorBorder"
+                ng-class="app.styler.helpMenuOptionClasses+' '+(app.config.themes_list.length>=40?'treble':(app.config.themes_list.length>=20?'double':''))"
+                ng-show="app.config.themehover" >
+                <a help-inverter
+                    ng-repeat="theme in app.config.themes_list | orderObjectBy:'name':false"
+                    ng-click="app.themeChanged(theme.name)">
+                    {{::theme.name}}
+                    <span ng-show="theme.name == app.ThemeService.theme.name">*</span>
+                </a>
+            </div>
+        </span>
+
+        <span class="dropdown" ng-if="app.config.app.ShowESControl">
+            <div class="filters click" help-inverter
+                    ng-if="!app.config.env.es_pid"
+                    ng-click="app.ES.start()">{{app.config.lang.es.startHelpbar}}</div>
+            <div class="filters click" help-inverter
+                    ng-if="app.config.env.es_pid"
+                    ng-click="app.showMenu('menu/es_close_warning.html')">{{app.config.lang.es.stopHelpbar}}</div>
+        </span>
+
+        <span class="dropdown">
+            <div class="filters click" help-inverter
+                    ng-click="app.goWiki()">{{app.config.lang.button.help}}</div>
+        </span>
+
+    </help-menu>
+</div>

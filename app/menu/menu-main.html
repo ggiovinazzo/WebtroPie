@@ -1,0 +1,19 @@
+<div class="menu gui">
+
+    <div class="title">{{app.config.lang.menu.Main}}</div>
+    <div class="line"></div>
+
+    <div class="option"
+         ng-repeat-start="option in app.menu.main"
+         ng-click="app.goMenu(option.action)">
+        {{app.config.lang.menu[option.text]}}
+        <img class="arrow icon right">
+    </div>
+    <div class="line"
+         ng-repeat-end></div>
+
+    <div class="footer">
+        <button ng-click="app.hideMenu()">{{app.config.lang.button.cancel}}</button>
+    </div>
+
+</div>

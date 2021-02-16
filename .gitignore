@@ -1,0 +1,10 @@
+logs/*
+!.gitkeep
+tmp
+.DS_Store
+.idea
+app/config/settings.cfg
+app/lib/angular*
+app/svr/downloaded_images
+app/svr/roms
+app/svr/themes

@@ -1,0 +1,30 @@
+<div class="menu gui">
+
+    <div class="title">{{app.config.lang.menu.Local}}</div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.WanEditMode}}
+        <image-toggle class="checkbox right"
+            ng-model="app.config.app.WanEditMode"
+            on-svg="resources/checkbox_checked.svg"
+            off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.CacheGamelists}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.CacheGamelists"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="footer">
+         <button ng-click="app.exitMenu()">{{app.config.lang.button.back}}</button>
+    </div>
+
+</div>

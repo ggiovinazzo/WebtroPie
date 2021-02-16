@@ -1,0 +1,26 @@
+<div class="menu gui">
+
+    <div class="title">Emulation Station</div>
+    <div class="line"></div>
+
+    <div class="prompt">
+        {{app.config.lang.es.warning1}}
+        <p>
+            {{app.config.lang.es.warning2}}
+        </p>
+        <p ng-if="app.config.local">
+            {{app.config.lang.es.closePrompt}}
+        </p>
+    </div>
+    <div class="line"></div>
+
+    <div class="footer" ng-hide="app.closing_es">
+        <span ng-if="app.config.local"></span>
+            <button ng-click="app.stopES()">{{app.config.lang.button.yes}}</button>
+            <button ng-click="app.hideMenu()">{{app.config.lang.button.no}}</button>
+        </span>
+        <button ng-hide="app.config.local"
+                ng-click="app.hideMenu()">{{app.config.lang.button.cancel}}</button>
+    </div>
+
+</div>

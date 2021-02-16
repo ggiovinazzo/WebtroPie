@@ -1,0 +1,107 @@
+<div class="menu gui">
+
+    <div class="title">{{app.config.lang.menu.UI}}</div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ThemeSet}}
+        <select class="right"
+             ng-model="app.config.app.ThemeSet"
+             ng-change="app.themeChanged()"
+             ng-keydown="app.menuKeyPress($event)"
+             ng-options="theme.name as theme.name for theme in app.config.themes_list | orderObjectBy:'name':false">
+         </select>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ViewTransitions}}
+        <select class="right"
+             ng-init="transitions = ['Fade','Slide']"
+             ng-change="app.viewTransitionChanged()"
+             ng-model="app.config.app.ViewTransitions"
+             ng-keydown="app.menuKeyPress($event)"
+             ng-options="transition for transition in transitions">
+             <option value="">Instant</option>
+        </select>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ViewStyle}}
+        <select class="right"
+             ng-init="viewstyles = ['basic','detailed','video']"
+             ng-change="app.viewStyleChanged()"
+             ng-model="app.config.app.ViewStyle"
+             ng-keydown="app.menuKeyPress($event)"
+             ng-options="viewstyle for viewstyle in viewstyles">
+            <option value="">Automatic</option>
+        </select>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.WaitForAnimations}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.WaitForAnimations"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.AutoplayVideos}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.AutoplayVideos"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.MuteVideos}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.MuteVideos"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowVideoControls}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowVideoControls"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.Language}}
+        <select class="right"
+                ng-model="app.config.app.Language"
+                ng-change="app.languageChanged()"
+                ng-keydown="app.menuKeyPress($event)"
+                ng-options="key as value for (key, value) in app.config.lang.language">
+        </select>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.DateFormat}}
+        <input class="right small"
+                ng-model="app.config.app.DateFormat"
+                ng-keydown="app.menuKeyPress($event)"
+                ng-blur="app.appConfigChanged('DateFormat')">
+    </div>
+    <div class="line"></div>
+
+    <div class="footer">
+         <button ng-click="app.exitMenu()">{{app.config.lang.button.back}}</button>
+    </div>
+
+</div>

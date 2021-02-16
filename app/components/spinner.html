@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 500" ng-style="{width: size, height: size}">
+    <filter id="drop-shadow">
+        <feOffset result="offOut" in="SourceGraphic" dx="25" dy="25" />
+        <feColorMatrix result="matrixOut" in="offOut" type="matrix" values="0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0" />
+        <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="10" />
+        <feBlend in="SourceGraphic" in2="blurOut" mode="normal">
+    </filter>
+    <g filter="url(#drop-shadow)">
+        <g class="spinner">
+            <path style="fill:#ffcc00" d="M500,380A250,250 0 1,1 500,120L250,250Z"/>
+            <circle cx="315" cy="170" r="20" fill="mediumblue" />
+        </g>
+    </g>
+</svg>

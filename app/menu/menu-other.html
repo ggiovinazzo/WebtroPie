@@ -1,0 +1,82 @@
+<div class="menu gui">
+
+    <div class="title">{{app.config.lang.menu.Other}}</div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.LoadAllSystems}}
+        <image-toggle class="checkbox right"
+            ng-model="app.config.app.LoadAllSystems"
+            on-svg="resources/checkbox_checked.svg"
+            off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ScanAtStartup}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ScanAtStartup"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.LogSystemTotals}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.LogSystemTotals"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowEmptySystems}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowEmptySystems"
+                clicked="app.CarouselService.createCarouselSystems()"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ShowEmptyDirectories}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ShowEmptyDirectories"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.OrderSystemsByFullname}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.OrderSystemsByFullname"
+                clicked="app.CarouselService.createCarouselSystems()"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="option">
+        {{app.config.lang.menu.ThemeEditor}}
+        <image-toggle class="checkbox right"
+                ng-model="app.config.app.ThemeEditor"
+                on-svg="resources/checkbox_checked.svg"
+                off-svg="resources/checkbox_unchecked.svg">
+        </image-toggle>
+    </div>
+    <div class="line"></div>
+
+    <div class="footer">
+         <button ng-click="app.exitMenu()">{{app.config.lang.button.back}}</button>
+    </div>
+
+</div>
